@@ -23,10 +23,13 @@
   $(document).ready(function() {
     var $pkgInput = $("#inp_package"),
         $weblabInp = $("#inp_weblab"),
-        $loader = $(".loader");
+        $loader = $(".loader"),
+        $crInfo = $(".cr_info"),
+        $crData = $crInfo.find("span.text_info");
     initalizeAutoComplete($pkgInput, "/packages");
     initalizeAutoComplete($weblabInp, "/weblabs");
 
+    // Post CR click
     $(".btn_container>#cr_submit").click(function() {
         var self = $(this);
         if(self.hasClass("btn_disable")){
@@ -39,18 +42,32 @@
             package : $pkgInput.val(),
             weblab : $weblabInp.val()
           }, function successHandler(data){
-            self.removeClass("btn_disable");
-            $loader.addClass("hide");
-            console.log("Output data : ");
-            if(data && data.crURL) {
-              window.setTimeout(function(){
-                window.open(data.crURL,'_blank');
-              }, 2000);
-            }
+                $loader.addClass("hide");
+                console.log("Output data : ");
+                if(data && data.crURL) {
+                  $crInfo.removeClass("hide");
+                  $pkgInput.attr('disabled','disabled');
+                  $weblabInp.attr('disabled','disabled');
+                  $crData.html(data.crURL);
+                  window.setTimeout(function(){
+                    window.open(data.crURL,'_blank');
+                  }, 2000);
+                }
           }, "json");
         } else {
-          alert("no");
+          alert("Kindly provide the details");
         }
      });
+
+    // Clear CR data
+    $crInfo.find("span.cr_remove").click(function() {
+      $crData.html("");
+      $crInfo.addClass("hide");
+      $pkgInput.removeAttr('disabled');
+      $pkgInput.val("");
+      $weblabInp.removeAttr('disabled');
+      $weblabInp.val("");
+      $(".btn_container>#cr_submit").removeClass("btn_disable");
+    });
   });
 })();

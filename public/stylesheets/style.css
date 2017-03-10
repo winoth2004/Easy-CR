@@ -154,16 +154,32 @@ table td, table th{
     background-position: 1px;
     border-left: 1px solid rgba(173, 184, 181, 0.61);
 }
-.loader{
-	background-image: url(/image/progress.gif);
-    background-size: 20px;
-    background-repeat: no-repeat;
+.loader, .cr_remove{
     display: inline-block;
     margin: 0px 30px;
+    background-size: 20px;
+    background-repeat: no-repeat;
 }
 
-.loader>span{
+.loader {
+	background-image: url(/image/progress.gif);
+}
+
+.text_info{
 	margin-left: 40px;
 	color: #d6be0b;
     font-weight: 500;
+}
+
+.cr_info{
+	display: inline-block;
+}
+
+.cr_remove{
+	background-image: url(/image/delete.png);
+    height: 20px;
+    width: 20px;
+    margin: 0px 5px;
+    background-position-y: 5px;
+    background-size: 15px;
 }
