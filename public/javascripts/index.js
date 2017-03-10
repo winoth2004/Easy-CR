@@ -22,19 +22,30 @@
   }
   $(document).ready(function() {
     var $pkgInput = $("#inp_package"),
-        $weblabInp = $("#inp_weblab");
+        $weblabInp = $("#inp_weblab"),
+        $loader = $(".loader");
     initalizeAutoComplete($pkgInput, "/packages");
     initalizeAutoComplete($weblabInp, "/weblabs");
 
     $(".btn_container>#cr_submit").click(function() {
+        var self = $(this);
+        if(self.hasClass("btn_disable")){
+          return;
+        }
         if($pkgInput.val() && $weblabInp.val()){
+          self.addClass("btn_disable");
+          $loader.removeClass("hide");
           $.post("http://localhost:60000/", {
             package : $pkgInput.val(),
             weblab : $weblabInp.val()
           }, function successHandler(data){
+            self.removeClass("btn_disable");
+            $loader.addClass("hide");
             console.log("Output data : ");
-            if(data.crURL) {
-              window.open(data.crURL,'_blank');
+            if(data && data.crURL) {
+              window.setTimeout(function(){
+                window.open(data.crURL,'_blank');
+              }, 2000);
             }
           }, "json");
         } else {

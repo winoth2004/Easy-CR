@@ -1,11 +1,19 @@
 #packages
+  h2.alignCenter IC Tech 2017 Winter Hackathon
   .centerAlign
+    h2.headerInfo Remove Weblab code
     h3 
-      span Package:
-      input(type='text', id='inp_package', value='')
+      span.halfWidth
+        span(for="inp_package") Package:
+        input.inputField(type='text', id='inp_package', value='', placeholder='Provide Package Name')
 
-      span.min_space_left Weblab:  
-      input(type='text', id='inp_weblab', value='')
+      span.halfWidth
+        span.min_space_left(for="inp_weblab") Weblab:  
+        input.inputField(type='text', id='inp_weblab', value='', placeholder='Provide Weblab Name')
 
     .btn_container
-      button(id='cr_submit') Post CR
+      div(id='cr_submit')
+        span Post CR
+        span.img_clean
+      div.loader.hide
+        span Removing weblab dependancies
